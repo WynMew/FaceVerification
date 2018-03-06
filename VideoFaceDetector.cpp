@@ -305,10 +305,7 @@ void VideoFaceDetector::FaceSessionChecker()
 			float fMaxPose;
 			fSTDYaw > fSTDPitch ? fMaxPose = fSTDYaw : fMaxPose = fSTDPitch;
 
-			cv::Mat FaceMiddle = FaceSession[iID].matFrame(Rect(FaceSession[iID].FaceRect.left + FaceSession[iID].FaceRect.width / 4,
-				FaceSession[iID].FaceRect.top + FaceSession[iID].FaceRect.height / 4,
-				FaceSession[iID].FaceRect.width / 2, FaceSession[iID].FaceRect.height / 2));//Actually a persuade crop
-			cv::Mat matFace = FaceMiddle.clone(); // You must clone it, so that the source data can be moved to dst data. 
+			...
 
 			uint8_t* pixelPtr = (uint8_t*)matFace.data;
 			int cn = matFace.channels();
@@ -322,32 +319,18 @@ void VideoFaceDetector::FaceSessionChecker()
 
 			try
 			{
-				for (int i = 0; i < matFace.rows; i++)
-				{
-					for (int j = 0; j < matFace.cols; j++)
-					{
-						lB += pixelPtr[i*matFace.cols*cn + j*cn + 0]; // B
-						lG += pixelPtr[i*matFace.cols*cn + j*cn + 1]; // G
-						lR += pixelPtr[i*matFace.cols*cn + j*cn + 2]; // R
-					}
-				}
-
-				fDataColor[0] = lB / (matFace.rows * matFace.cols);
-				fDataColor[1] = lG / (matFace.rows * matFace.cols);
-				fDataColor[2] = lR / (matFace.rows * matFace.cols);
-
-				fColorVarience = calculateSTD(fDataColor);
+				...
 			}
 			catch (...)
 			{
-				fColorVarience = 0;
+				
 			}
 
 			//std::cout << lB << " " << lG << " " << lR << std::endl;
 			//std::cout << fColorVarience << std::endl;
 			//std::cout << fMaxPose << "-" << iIRFaceCounter << "-" << fMeanQuality << "-" << fMeanClarity << "-" << fColorVarience << std::endl;
 
-			if ((fMaxPose > 0.2) && (fMaxPose <5) && (iIRFaceCounter > 8) && (fMeanQuality > 30) && (fMeanClarity > 40) && (fColorVarience >5))
+			if (...)
 			{
 				//std::cout << "living face\n";
 				//ExtractAndSearch(FaceSession[iID].FaceRect, FaceSession[iID].matFrame, UserDatabase, FaceDetectRecogResult, FF_handle, isSearch);
